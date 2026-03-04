@@ -33,10 +33,9 @@ Route::get('/paypal/cancel', [PaypalController::class, 'paymentCancel'])->name('
 Route::view('/payment-success', 'payment-success')->name('payment.success');
 Route::view('/payment-cancelled', 'payment-cancelled')->name('payment.cancelled');
 Route::view('/payment-failed', 'payment-failed')->name('payment.failed');
-Route::get('/payment/success/{id}', function ($id) {
-    $booking = \App\Models\Booking::findOrFail($id);
+Route::get('/payment/success/{booking}', function (\App\Models\Booking $booking) {
     return view('payment-success', compact('booking'));
-})->name('payment.success');
+})->middleware(['auth', 'can:view,booking'])->name('payment.success');
 
 
 // Include auth routes

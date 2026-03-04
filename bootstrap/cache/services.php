@@ -49,6 +49,7 @@
     45 => 'Srmklive\\PayPal\\Providers\\PayPalServiceProvider',
     46 => 'App\\Providers\\AppServiceProvider',
     47 => 'App\\Providers\\Filament\\AdminPanelProvider',
+    48 => 'App\\Providers\\RepositoryServiceProvider',
   ),
   'eager' => 
   array (
@@ -84,6 +85,7 @@
     29 => 'Srmklive\\PayPal\\Providers\\PayPalServiceProvider',
     30 => 'App\\Providers\\AppServiceProvider',
     31 => 'App\\Providers\\Filament\\AdminPanelProvider',
+    32 => 'App\\Providers\\RepositoryServiceProvider',
   ),
   'deferred' => 
   array (

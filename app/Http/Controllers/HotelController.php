@@ -1,18 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
-use App\Models\Hotel;
-use App\Models\Room;
-use Illuminate\Http\Request;
+
+use App\Interfaces\HotelRepositoryInterface;
+use App\Interfaces\RoomRepositoryInterface;
 
 class HotelController extends Controller
 {
-    public function showRooms($id)
-{
-    $hotel = Hotel::findOrFail($id);
-    $rooms = Room::where('hotel_id', $id)->get();
+    private HotelRepositoryInterface $hotelRepository;
+    private RoomRepositoryInterface $roomRepository;
 
-    return view('home.rooms', compact('rooms', 'hotel'));
-}
+    public function __construct(HotelRepositoryInterface $hotelRepository, RoomRepositoryInterface $roomRepository)
+    {
+        $this->hotelRepository = $hotelRepository;
+        $this->roomRepository = $roomRepository;
+    }
 
+    public function showRooms(int $id)
+    {
+        $hotel = $this->hotelRepository->findById($id);
+        $rooms = $this->roomRepository->getByHotelId($id);
+
+        return view('home.rooms', compact('rooms', 'hotel'));
+    }
 }

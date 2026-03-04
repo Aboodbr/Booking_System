@@ -58,10 +58,11 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-     public function show_booking()
+    public function show_booking()
     {
-        $id = Auth::user()->id;
-        $user_booking = Booking::find($id);
-        return view('profile.booking',compact('user_booking'));
+        $user = Auth::user();
+        /** @var \App\Models\User $user */
+        $user_booking = $user->bookings()->get();
+        return view('profile.booking', compact('user_booking'));
     }
 }
