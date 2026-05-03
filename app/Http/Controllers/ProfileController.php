@@ -6,7 +6,6 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Booking;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -58,11 +57,17 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
     public function show_booking()
     {
         $user = Auth::user();
         /** @var \App\Models\User $user */
-        $user_booking = $user->bookings()->get();
+        $user_booking = $user->bookings()->latest()->first();
+
+        if (! $user_booking) {
+            return redirect()->route('home.index')->with('error', 'You have no bookings yet.');
+        }
+
         return view('profile.booking', compact('user_booking'));
     }
 }

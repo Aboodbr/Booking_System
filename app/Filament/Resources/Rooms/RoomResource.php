@@ -11,7 +11,6 @@ use App\Models\Room;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class RoomResource extends Resource
@@ -20,7 +19,7 @@ class RoomResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-home-modern';
 
-    protected static ?string $recordTitleAttribute = 'Room';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {

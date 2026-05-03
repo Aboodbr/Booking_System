@@ -11,8 +11,8 @@ use App\Models\Hotel;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class HotelResource extends Resource
 {
@@ -20,7 +20,7 @@ class HotelResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-building-office';
 
-    protected static ?string $recordTitleAttribute = 'Hotel';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
@@ -35,7 +35,7 @@ class HotelResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 
@@ -46,5 +46,15 @@ class HotelResource extends Resource
             'create' => CreateHotel::route('/create'),
             'edit' => EditHotel::route('/{record}/edit'),
         ];
+    }
+
+    // 🚀 دالة تحسين الأداء (Eager Loading)
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with([
+            // الكود الحالي لا يحتوي على علاقات في الجدول، ولكن عندما تضيف
+            // علاقة (مثل city أو category)، ضع اسمها هنا لمنع مشكلة N+1 Queries
+            // 'city',
+        ]);
     }
 }
