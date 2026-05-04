@@ -11,16 +11,15 @@ use App\Models\Booking;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Table;
+use Filament\Tables\Table; //
 
 class BookingResource extends Resource
 {
     protected static ?string $model = Booking::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days'; // أيقونة للقائمة الجانبية
 
-    protected static ?string $recordTitleAttribute = 'Booking';
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
@@ -29,14 +28,8 @@ class BookingResource extends Resource
 
     public static function table(Table $table): Table
     {
+        // هنا نقوم باستدعاء الإعدادات من الملف الخارجي ليبقى الكود نظيفاً
         return BookingsTable::configure($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Bookings\Schemas;
 
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -12,16 +13,15 @@ class BookingForm
     {
         return $schema
             ->components([
-                TextInput::make('hotel_id')
-                    ->tel()
-                    ->required()
-                    ->numeric(),
-                TextInput::make('room_id')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
+                Select::make('hotel_id')
+                    ->relationship('hotel', 'name')
+                    ->required(),
+                Select::make('room_id')
+                    ->relationship('room', 'name')
+                    ->required(),
+                Select::make('user_id')
+                    ->relationship('user', 'name')
+                    ->required(),
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('email')
@@ -44,6 +44,9 @@ class BookingForm
                     ->prefix('$'),
                 TextInput::make('status')
                     ->required(),
+                TextInput::make('payment_method')
+                    ->required()
+                    ->default('cash'),
             ]);
     }
 }
