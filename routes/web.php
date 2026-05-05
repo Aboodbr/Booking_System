@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RoomController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('about', [HomeController::class, 'about'])->name('home.about');
-
+Route::get('contact', [HomeController::class, 'contact'])->name('home.contact');
 
 // User profile routes (protected by auth middleware)
 Route::middleware('auth')->group(function () {
@@ -26,7 +26,7 @@ Route::get('/Apartment/{id}', [RoomController::class, 'getone'])->name('home.one
 Route::get('/hotel/{id}/rooms', [HotelController::class, 'showRooms'])->name('hotel.rooms');
 Route::post('/book-room', [RoomController::class, 'booking'])->name('book_room');
 
-//Paypal routes
+// Paypal routes
 Route::post('/paypal/create', [PaypalController::class, 'createPayment'])->name('paypal.create');
 Route::get('/paypal/success', [PaypalController::class, 'paymentSuccess'])->name('paypal.success');
 Route::get('/paypal/cancel', [PaypalController::class, 'paymentCancel'])->name('paypal.cancel');
@@ -37,6 +37,5 @@ Route::get('/payment/success/{booking}', function (\App\Models\Booking $booking)
     return view('payment-success', compact('booking'));
 })->middleware(['auth', 'can:view,booking'])->name('payment.success');
 
-
 // Include auth routes
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
