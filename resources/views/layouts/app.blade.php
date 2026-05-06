@@ -9,6 +9,9 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6.4.0 (Icons for Nav) & 4.7.0 (Template Support) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
@@ -76,10 +79,10 @@
             border: 1px solid #fd7792 !important;
             color: #fff !important;
             padding: 10px 25px !important;
-			margin-top: 25%;
             border-radius: 5px;
             font-weight: 700;
             transition: 0.3s all ease;
+            margin-top: 25% !important; /* تم تعديله ليتناسب مع النافيجيشن */
         }
         .btn-book:hover {
             background: #e0607a !important;
@@ -162,33 +165,8 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="/">Damas<span>Hotel</span></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="fa fa-bars"></span> Menu
-            </button>
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
-                        <a href={{ route('home.index') }} class="nav-link"><i class="fa fa-home"></i> Home</a>
-                    </li>
-                    <li class="nav-item {{ request()->is('about*') ? 'active' : '' }}">
-                        <a href={{ route('home.about') }} class="nav-link"><i class="fa fa-info-circle"></i> About</a>
-                    </li>
-                    <li class="nav-item {{ request()->is('rooms*') ? 'active' : '' }}">
-                        <a href={{ route('home.rooms') }} class="nav-link"><i class="fa fa-bed"></i> Rooms</a>
-                    </li>
-                    <li class="nav-item {{ request()->is('contact*') ? 'active' : '' }}">
-                        <a href={{ route('home.contact') }} class="nav-link"><i class="fa fa-envelope"></i> Contact</a>
-                    </li>
-                    <li class="nav-item ml-lg-2">
-                        <a href={{ route('home.rooms') }} class="nav-link btn-book text-white">Book Now</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Include Navigation -->
+    @include('layouts.navigation')
 
     <main>
         @yield('content')

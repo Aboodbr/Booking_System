@@ -1,7 +1,3 @@
-<head>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-</head>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home.index') }}">
@@ -16,15 +12,31 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ms-auto justify-content-end w-100">
-                <li class="nav-item active">
+                <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
                     <a href="{{ route('home.index') }}" class="nav-link">
                         <i class="fas fa-home me-1"></i> Home
                     </a>
                 </li>
-                <li class="nav-item"><a href={{ route('home.about') }} class="nav-link"><i class="fas fa-info-circle me-1"></i> About</a></li>
-                <li class="nav-item"><a href="services.html" class="nav-link"><i class="fas fa-concierge-bell me-1"></i> Services</a></li>
-                <li class="nav-item"><a href="{{ route('home.rooms') }}" class="nav-link"><i class="fas fa-bed me-1"></i> Apartment Room</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link"><i class="fas fa-envelope me-1"></i> Contact</a></li>
+                <li class="nav-item {{ request()->is('about*') ? 'active' : '' }}">
+                    <a href="{{ route('home.about') }}" class="nav-link">
+                        <i class="fas fa-info-circle me-1"></i> About
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-concierge-bell me-1"></i> Services
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->is('rooms*') ? 'active' : '' }}">
+                    <a href="{{ route('home.rooms') }}" class="nav-link">
+                        <i class="fas fa-bed me-1"></i> Rooms
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->is('contact*') ? 'active' : '' }}">
+                    <a href="{{ route('home.contact') }}" class="nav-link">
+                        <i class="fas fa-envelope me-1"></i> Contact
+                    </a>
+                </li>
 
                 @guest
                     <li class="nav-item">
@@ -54,6 +66,7 @@
                                     <i class="fas fa-calendar-check me-1"></i> My Bookings
                                 </a>
                             </li>
+                            <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
@@ -65,6 +78,9 @@
                         </ul>
                     </li>
                 @endguest
+                <li class="nav-item ml-lg-2">
+                    <a href="{{ route('home.rooms') }}" class="nav-link btn-book text-white">Book Now</a>
+                </li>
             </ul>
         </div>
     </div>
