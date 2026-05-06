@@ -22,30 +22,23 @@ class RoomRepository implements RoomRepositoryInterface
         });
     }
 
-    /**
-     * @param int $perPage
-     * @return LengthAwarePaginator
-     */
     public function getPaginated(int $perPage = 15): LengthAwarePaginator
     {
         return Room::with('hotel')->paginate($perPage);
     }
 
     /**
-     * @param int $hotelId
      * @return Collection<int, Room>
      */
     public function getByHotelId(int $hotelId): Collection
     {
-        return Room::where('hotel_id', $hotelId)->get();
+
+        return Room::with('hotel')->where('hotel_id', $hotelId)->get();
     }
 
-    /**
-     * @param int $id
-     * @return Room
-     */
     public function findById(int $id): Room
     {
-        return Room::findOrFail($id);
+
+        return Room::with('hotel')->findOrFail($id);
     }
 }

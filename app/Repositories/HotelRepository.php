@@ -21,18 +21,13 @@ class HotelRepository implements HotelRepositoryInterface
         });
     }
 
-    /**
-     * @return Hotel|null
-     */
     public function getFirst(): ?Hotel
     {
-        return Hotel::with('rooms')->first();
+        return Cache::remember('hotel.first', 3600, function () {
+            return Hotel::with('rooms')->first();
+        });
     }
 
-    /**
-     * @param int $id
-     * @return Hotel
-     */
     public function findById(int $id): Hotel
     {
         return Hotel::with('rooms')->findOrFail($id);
