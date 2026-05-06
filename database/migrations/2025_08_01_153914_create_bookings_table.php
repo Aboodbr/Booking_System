@@ -22,14 +22,17 @@ return new class extends Migration
             $table->date('check_in');
             $table->date('check_out');
             $table->integer('duration_days');
-            $table->decimal('price', 8, 2);
+            $table->decimal('price', 10, 2);
             $table->string('status');
 
-            //Relations
+            // Relations
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
-            //end relation
+            // end relation
+
+            $table->index(['check_in', 'check_out']);
+            $table->index('status');
             $table->timestamps();
         });
     }

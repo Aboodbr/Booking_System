@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('size');
             $table->string('view');
             $table->string('num_bed');
-            $table->string('price');
+            $table->decimal('price', 10, 2);
+            $table->index('price');
+            $table->index('num_person');
             $table->timestamps();
         });
     }
