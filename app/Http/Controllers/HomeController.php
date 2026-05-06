@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\HotelRepositoryInterface;
 use App\Interfaces\RoomRepositoryInterface;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,14 @@ class HomeController extends Controller
 
     public function index()
     {
-        $hotels = $this->hotelRepository->getAll();
-        $rooms = $this->roomRepository->getAll();
+        // استخدام الكاش لمدة 60 دقيقة (3600 ثانية)
+        $hotels = Cache::remember('home_hotels', 3600, function () {
+            return $this->hotelRepository->getAll();
+        });
+
+        $rooms = Cache::remember('home_rooms', 3600, function () {
+            return $this->roomRepository->getAll();
+        });
 
         return view('home.index', compact('hotels', 'rooms'));
     }

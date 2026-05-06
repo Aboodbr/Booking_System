@@ -18,8 +18,6 @@ return new class extends Migration
             $table->text('description');
             $table->string('location');
             $table->timestamps();
-
-            // إضافة فهرس لتسريع البحث أو الفلترة بواسطة الموقع
             $table->index('location');
         });
     }

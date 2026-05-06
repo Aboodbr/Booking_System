@@ -9,13 +9,15 @@ use App\Http\Requests\BookingRequest;
 use App\Interfaces\HotelRepositoryInterface;
 use App\Interfaces\RoomRepositoryInterface;
 use App\Services\BookingService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
 {
     private HotelRepositoryInterface $hotelRepository;
+
     private RoomRepositoryInterface $roomRepository;
+
     private BookingService $bookingService;
 
     public function __construct(
@@ -31,8 +33,9 @@ class RoomController extends Controller
     // Display all available rooms
     public function getall()
     {
-        $hotel = $this->hotelRepository->getFirst();
-        $rooms = $this->roomRepository->getAll();
+        $hotel = Cache::remember('first_hotel', 3600, fn () => $this->hotelRepository->getFirst());
+        $rooms = Cache::remember('all_rooms', 3600, fn () => $this->roomRepository->getAll());
+
         return view('home.rooms', compact('rooms', 'hotel'));
     }
 
@@ -40,13 +43,14 @@ class RoomController extends Controller
     public function getone(int $id)
     {
         $room = $this->roomRepository->findById($id);
+
         return view('home.single_room', compact('room'));
     }
 
     // Handle the booking request
     public function booking(BookingRequest $request)
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect()->route('login')->with('error', 'You must be logged in to book a room.');
         }
 
