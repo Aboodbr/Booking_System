@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Interfaces\PaymentServiceInterface;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Models\Booking;
 
 class PaypalController extends Controller
 {
@@ -42,15 +42,16 @@ class PaypalController extends Controller
         ]);
 
         $token = $request->query('token');
-        if (!$token) {
+        if (! $token) {
             Log::warning('No token received in paymentSuccess');
+
             return redirect()->route('payment.failed')->with('error', 'Invalid PayPal response.');
         }
 
         $response = $this->paymentService->capturePayment((string) $token);
 
         Log::info('PayPal capturePaymentOrder response', [
-            'response' => $response
+            'response' => $response,
         ]);
 
         $booking = $this->paymentService->processSuccessfulPayment($response);
@@ -60,19 +61,32 @@ class PaypalController extends Controller
         }
 
         Log::error('PayPal capture failed', ['response' => $response]);
+
         return redirect()->route('payment.failed')->with('error', 'Payment capture failed.');
     }
 
     public function paymentCancel()
-{
-    session()->forget('paypal_booking_id');
-    return view('payment-cancelled');
-}
+    {
+        $bookingId = session('paypal_booking_id');
 
-public function paymentFailed()
-{
-    return view('payment-failed');
-}
+        if ($bookingId) {
 
+            $booking = Booking::find($bookingId);
 
+            if ($booking) {
+                $booking->update([
+                    'status' => 'cancelled',
+                ]);
+            }
+        }
+
+        session()->forget('paypal_booking_id');
+
+        return view('payment-cancelled');
+    }
+
+    public function paymentFailed()
+    {
+        return view('payment-failed');
+    }
 }
