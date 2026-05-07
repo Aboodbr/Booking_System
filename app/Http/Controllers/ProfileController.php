@@ -62,12 +62,12 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         /** @var \App\Models\User $user */
-        $user_booking = $user->bookings()->latest()->first();
+        $user_bookings = $user->bookings()->latest()->get();
 
-        if (! $user_booking) {
+        if (! $user_bookings) {
             return redirect()->route('home.index')->with('error', 'You have no bookings yet.');
         }
 
-        return view('profile.booking', compact('user_booking'));
+        return view('profile.booking', compact('user_bookings'));
     }
 }
