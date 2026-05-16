@@ -11,6 +11,7 @@ use App\Interfaces\RoomRepositoryInterface;
 use App\Services\BookingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class RoomController extends Controller
 {

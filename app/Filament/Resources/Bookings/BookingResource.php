@@ -11,13 +11,14 @@ use App\Models\Booking;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Tables\Table; //
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class BookingResource extends Resource
 {
     protected static ?string $model = Booking::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days'; // أيقونة للقائمة الجانبية
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar-days';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -28,7 +29,6 @@ class BookingResource extends Resource
 
     public static function table(Table $table): Table
     {
-        // هنا نقوم باستدعاء الإعدادات من الملف الخارجي ليبقى الكود نظيفاً
         return BookingsTable::configure($table);
     }
 
@@ -39,5 +39,10 @@ class BookingResource extends Resource
             'create' => CreateBooking::route('/create'),
             'edit' => EditBooking::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with(['user', 'hotel', 'room']);
     }
 }

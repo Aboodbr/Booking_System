@@ -48,13 +48,9 @@ class HotelResource extends Resource
         ];
     }
 
-    // 🚀 دالة تحسين الأداء (Eager Loading)
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->with([
-            // الكود الحالي لا يحتوي على علاقات في الجدول، ولكن عندما تضيف
-            // علاقة (مثل city أو category)، ضع اسمها هنا لمنع مشكلة N+1 Queries
-            // 'city',
-        ]);
+        return parent::getEloquentQuery()
+            ->withCount(['rooms']);
     }
 }
