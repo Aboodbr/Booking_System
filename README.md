@@ -1,90 +1,109 @@
 # Hotel Management & Booking System 🏨
 
-A comprehensive, scalable hotel reservation platform built with **Laravel** and **Filament PHP**. This system is designed to deliver a fast, seamless booking experience for users while providing a highly efficient and intuitive administrative dashboard for hotel management.
+A complete hotel reservation platform built with **Laravel** and **Filament PHP**. Guests browse hotels and rooms and book in seconds, while hotel staff manage everything from a powerful, intuitive admin dashboard.
 
 ## 🔗 Links
 
-- **Video Demo:** [Watch Demo on Google Drive](https://drive.google.com/file/d/1syiDKYpOX0N5Eb_jfj_lKfCRbI8oKecr/view?usp=sharing)
-- **Repository:** [GitHub Link](https://github.com/Aboodbr/Booking_System.git)
+- **Video Demo:** [Watch the demo on Google Drive](https://drive.google.com/file/d/1syiDKYpOX0N5Eb_jfj_lKfCRbI8oKecr/view?usp=sharing)
+- **Full Documentation:** [DOCUMENTATION.md](DOCUMENTATION.md)
+- **Repository:** [github.com/Aboodbr/Booking_System](https://github.com/Aboodbr/Booking_System)
 
 ## 🚀 Key Features
 
-### 🧑‍💻 User Experience (Frontend)
+### 🧑‍💻 Guest Experience (Frontend)
 
-- **Seamless Booking Flow:** Fast and user-friendly interface for browsing and reserving rooms.
-- **Responsive Design:** Fully responsive UI built with HTML, CSS, and Vanilla JavaScript.
-- **Real-Time Availability:** Accurate reflection of room statuses to prevent double bookings.
+- **Seamless booking flow:** fast, user-friendly interface for browsing hotels and reserving rooms.
+- **Real-time availability:** accurate room statuses that prevent double bookings.
+- **Responsive design:** fully responsive UI built with HTML, CSS, and vanilla JavaScript.
+- **Booking confirmation:** guests receive their booking details by email.
 
 ### 🛡️ Admin Dashboard (Filament PHP)
 
-- **Streamlined Operations:** Rapidly developed, robust admin panel utilizing Filament.
-- **Booking Management:** Easily view, approve, modify, or cancel customer reservations.
-- **Room & Resource Control:** Manage room types, pricing, and availability dynamically.
+- **Insightful dashboard:** revenue, total bookings, and room counts with booking trend charts.
+- **Booking management:** view, approve, modify, or cancel customer reservations.
+- **Room & hotel control:** manage hotels, rooms, pricing, and availability dynamically.
+- **User management:** view and manage registered users.
 
 ### ⚙️ System Architecture (Backend)
 
-- **Advanced Laravel Patterns:** Maintainable, structured, and clean code architecture.
-- **Optimized Performance:** Efficient database queries and structured workflows to handle traffic smoothly.
-- **Robust Security:** Secure data handling and user authentication.
+- **Clean Laravel architecture:** migrations, seeders, Eloquent relationships, and request validation.
+- **Optimized performance:** efficient database queries and structured workflows.
+- **Robust security:** secure authentication and data handling.
+- **Flexible database layer:** MySQL by default, SQLite supported for quick local setup.
 
 ## 💻 Tech Stack
 
 - **Backend:** PHP 8.x, Laravel
-- **Admin Panel:** Filament
-- **Database:** MySQL
-- **Frontend:** HTML, CSS, JavaScript
+- **Admin Panel:** Filament PHP
+- **Database:** MySQL / SQLite
+- **Frontend:** HTML, CSS, JavaScript, Tailwind CSS, Vite
 
 ## 🛠️ Installation & Setup
 
-Follow these steps to run the project locally:
-
 1. **Clone the repository:**
+
     ```bash
-    git clone [https://github.com/Aboodbr/Booking_System.git](https://github.com/Aboodbr/Booking_System.git)
-    Navigate to the project directory:
+    git clone https://github.com/Aboodbr/Booking_System.git
+    cd Booking_System
     ```
 
-Bash
-cd Booking_System
-Install PHP dependencies:
+2. **Install PHP dependencies:**
 
-Bash
-composer install
+    ```bash
+    composer install
+    ```
 
-4. **Install Frontend dependencies:**
+3. **Install and build frontend assets:**
+
     ```bash
     npm install && npm run build
-
     ```
 
-Set up the environment file:
-Duplicate the .env.example file and rename it to .env, then configure your MySQL database credentials.
+4. **Set up the environment file:**
 
-Bash
-cp .env.example .env
+    ```bash
+    cp .env.example .env
+    ```
 
-6. **Generate the application key:**
+    Then configure your database credentials in `.env` (MySQL or SQLite).
+
+5. **Generate the application key:**
+
     ```bash
     php artisan key:generate
-    Run database migrations and seeders:
     ```
 
-Bash
-php artisan migrate --seed
-Create a Filament Admin User:
+6. **Run database migrations and seeders:**
 
-Bash
-php artisan make:filament-user
+    ```bash
+    php artisan migrate --seed
+    ```
 
-9. **Start the local development server:**
+7. **Create a Filament admin user:**
+
+    ```bash
+    php artisan make:filament-user
+    ```
+
+8. **Start the local development server:**
+
     ```bash
     php artisan serve
-
     ```
 
-👨‍💻 Author
-Abdalrhman Ahmed
+    The storefront is at `http://127.0.0.1:8000` and the admin panel at `http://127.0.0.1:8000/admin`.
 
-LinkedIn: [Abdelrahman Albetar](https://www.linkedin.com/in/abdelrahman-albetar-672375318/)
+## 📄 Documentation
 
-Email: aboodragon12345@gmail.com
+Full buyer documentation (installation, configuration, admin usage, customization, deployment) is in [DOCUMENTATION.md](DOCUMENTATION.md).
+
+## 📜 License
+
+This project is commercial software. See [LICENSE](LICENSE) for terms.
+
+## 👨‍💻 Author
+
+**Abdelrahman Albetar**
+
+- LinkedIn: [Abdelrahman Albetar](https://www.linkedin.com/in/abdelrahman-albetar-672375318/)
+- Email: aboodragon12345@gmail.com
